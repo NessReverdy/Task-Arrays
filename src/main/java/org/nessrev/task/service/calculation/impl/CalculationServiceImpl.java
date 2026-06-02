@@ -1,10 +1,8 @@
-package org.nessrev.service.calculation;
+package org.nessrev.task.service.calculation;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.nessrev.entity.NumericArrayEntity;
-import org.nessrev.service.helper.HelperService;
-import org.nessrev.service.helper.HelperServiceImpl;
+import org.nessrev.task.entity.NumericArrayEntity;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
@@ -12,9 +10,7 @@ import java.util.Arrays;
 import java.util.Optional;
 
 public class CalculationServiceImpl implements CalculationService {
-    private final HelperService helperService = new HelperServiceImpl();
-    private static final Logger logger =
-            LogManager.getLogger(CalculationServiceImpl.class);
+    private static final Logger logger = LogManager.getLogger(CalculationServiceImpl.class);
 
     @Override
     public <T extends Number> Optional<Double> min(NumericArrayEntity<T> arrayEntity) {
@@ -22,7 +18,6 @@ public class CalculationServiceImpl implements CalculationService {
             T[] array = arrayEntity.getNumericArray();
 
             logger.debug("Calculating minimum value for array of size {}", array.length);
-            helperService.print(array);
 
             double min = round(
                     Arrays.stream(array)
@@ -44,7 +39,6 @@ public class CalculationServiceImpl implements CalculationService {
             T[] array = arrayEntity.getNumericArray();
 
             logger.debug("Calculating maximum value for array of size {}", array.length);
-            helperService.print(array);
 
             double max = round(
                     Arrays.stream(array)
@@ -66,7 +60,6 @@ public class CalculationServiceImpl implements CalculationService {
             T[] array = arrayEntity.getNumericArray();
 
             logger.debug("Calculating sum value for array of size {}", array.length);
-            helperService.print(array);
 
             double sum = round(
                     Arrays.stream(array)
@@ -87,7 +80,6 @@ public class CalculationServiceImpl implements CalculationService {
             T[] array = arrayEntity.getNumericArray();
 
             logger.debug("Calculating average value for array of size {}", array.length);
-            helperService.print(array);
 
             double avg = round(
                     Arrays.stream(array)

@@ -1,8 +1,7 @@
 package org.nessrev.service.reader;
 
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.io.TempDir;
-import org.nessrev.exceptions.FileReadException;
+import org.nessrev.exceptions.CustomException;
 
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -33,7 +32,7 @@ public class FileReaderServiceImplTest {
     void readFile_shouldThrowException_whenFileNotExists() {
         String invalidFile = "not_existing_file.txt";
 
-        assertThrows(FileReadException.class, () -> {
+        assertThrows(CustomException.class, () -> {
             fileReaderService.readFile(invalidFile);
         });
     }

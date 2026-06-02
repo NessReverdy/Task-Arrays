@@ -1,6 +1,6 @@
-package org.nessrev.service.parser;
+package org.nessrev.task.parser;
 
-import org.nessrev.service.parser.realization.AbstractNumericParser;
+import org.nessrev.task.parser.realization.AbstractNumericParser;
 
 public class DoubleArrayParser extends AbstractNumericParser<Double> {
     private static final String CHECK_DOUBLE = "-?\\d+\\.\\d+";

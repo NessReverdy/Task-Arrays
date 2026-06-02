@@ -4,7 +4,7 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
 import org.nessrev.entity.NumericArrayEntity;
-import org.nessrev.exceptions.NullEntityException;
+import org.nessrev.exceptions.CustomException;
 
 import java.util.stream.Stream;
 
@@ -22,7 +22,7 @@ public class SortServiceImplTest {
 
     @ParameterizedTest
     @MethodSource("arraysForQuickSort")
-    void quickSort_shouldSortCorrectly(Integer[] input, Integer[] expected) {
+    void quickSort_shouldSortCorrectly(Integer[] input, Integer[] expected) throws CustomException {
         NumericArrayEntity<Integer> entity =
                 new NumericArrayEntity<>(input);
 
@@ -34,7 +34,7 @@ public class SortServiceImplTest {
 
     @ParameterizedTest
     @MethodSource("arraysForQuickSort")
-    void mergeSort_shouldSortCorrectly(Integer[] input, Integer[] expected) {
+    void mergeSort_shouldSortCorrectly(Integer[] input, Integer[] expected) throws CustomException {
         NumericArrayEntity<Integer> entity =
                 new NumericArrayEntity<>(input);
 
@@ -47,7 +47,7 @@ public class SortServiceImplTest {
     @ParameterizedTest
     @MethodSource("invalidCases")
     void quickSort_shouldHandleInvalidInput(NumericArrayEntity<Integer> entity) {
-        assertThrows(NullEntityException.class, () -> {
+        assertThrows(CustomException.class, () -> {
             sortService.quickSort(entity);
         });
     }
@@ -55,7 +55,7 @@ public class SortServiceImplTest {
     @ParameterizedTest
     @MethodSource("invalidCases")
     void mergeSort_shouldHandleInvalidInput(NumericArrayEntity<Integer> entity) {
-        assertThrows(NullEntityException.class, () -> {
+        assertThrows(CustomException.class, () -> {
             sortService.mergeSort(entity);
         });
     }

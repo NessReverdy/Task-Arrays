@@ -1,50 +1,43 @@
-package org.nessrev.service.sort;
+package org.nessrev.task.service.sort;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.nessrev.entity.NumericArrayEntity;
-import org.nessrev.exceptions.NullEntityException;
-import org.nessrev.service.helper.HelperService;
-import org.nessrev.service.helper.HelperServiceImpl;
+import org.nessrev.task.entity.NumericArrayEntity;
+import org.nessrev.task.exceptions.CustomException;
 
 public class SortServiceImpl implements SortService {
-    private final HelperService helperService = new HelperServiceImpl();
     private final Logger logger =
             LogManager.getLogger(SortServiceImpl.class);
 
     @Override
-    public <T extends Number> NumericArrayEntity<T> quickSort(NumericArrayEntity<T> entity) {
+    public <T extends Number> NumericArrayEntity<T> quickSort(NumericArrayEntity<T> entity) throws CustomException {
         if (isEntityValid(entity)) {
             logger.info("QuickSort started");
             T[] arr = entity.getNumericArray();
 
-            helperService.print(entity);
             quickSort(arr, 0, arr.length - 1);
             entity.setNumericArray(arr);
-            helperService.print(entity);
             logger.info("QuickSort finished");
 
             return entity;
         } else {
-            throw new NullEntityException();
+            throw new CustomException("The entity is null");
         }
     }
 
     @Override
-    public <T extends Number> NumericArrayEntity<T> mergeSort(NumericArrayEntity<T> entity) {
+    public <T extends Number> NumericArrayEntity<T> mergeSort(NumericArrayEntity<T> entity) throws CustomException {
         if (isEntityValid(entity)) {
             logger.info("MergeSort started");
             T[] arr = entity.getNumericArray();
 
-            helperService.print(entity);
             mergeSort(arr, 0, arr.length - 1);
             entity.setNumericArray(arr);
-            helperService.print(entity);
             logger.info("MergeSort finished");
 
             return entity;
         } else {
-            throw new NullEntityException();
+            throw new CustomException("The entity is null");
         }
     }
 

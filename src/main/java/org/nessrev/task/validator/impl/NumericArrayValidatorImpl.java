@@ -1,17 +1,14 @@
-package org.nessrev.service.validator;
+package org.nessrev.task.validator;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.nessrev.service.helper.HelperService;
-import org.nessrev.service.helper.HelperServiceImpl;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class NumericArrayValidatorImpl implements NumericArrayValidator {
-    private final HelperService helperService = new HelperServiceImpl();
 
-    private static final String FIND_NUM = "-?\\d+(\\.\\d+)?";
+    private static final String DECIMAL_NUMBER_PATTERN = "-?\\d+(\\.\\d+)?";
     private static final Logger logger =
             LogManager.getLogger(NumericArrayValidatorImpl.class);
 
@@ -24,14 +21,13 @@ public class NumericArrayValidatorImpl implements NumericArrayValidator {
             String[] tokens = line.split("[;,\\s]+");
 
             for (String token : tokens) {
-                if (token.matches(FIND_NUM)) {
+                if (token.matches(DECIMAL_NUMBER_PATTERN)) {
                     result.add(token);
                 }
             }
         }
 
         logger.info("List successfully validated. Numbers count: {}", result.size());
-        helperService.print(result);
         return result;
     }
 }
