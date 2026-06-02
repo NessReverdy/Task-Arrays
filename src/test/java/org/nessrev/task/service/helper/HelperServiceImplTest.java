@@ -1,7 +1,7 @@
-package org.nessrev.service.helper;
+package org.nessrev.task.service.helper;
 
 import org.junit.jupiter.api.Test;
-import org.nessrev.entity.NumericArrayEntity;
+import org.nessrev.task.entity.NumericArrayEntity;
 
 import java.util.List;
 

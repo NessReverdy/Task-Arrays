@@ -1,9 +1,10 @@
-package org.nessrev.task.service.sort;
+package org.nessrev.task.service.sort.impl;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.nessrev.task.entity.NumericArrayEntity;
-import org.nessrev.task.exceptions.CustomException;
+import org.nessrev.task.exception.CustomException;
+import org.nessrev.task.service.sort.SortService;
 
 public class SortServiceImpl implements SortService {
     private final Logger logger =

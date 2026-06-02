@@ -1,7 +1,8 @@
-package org.nessrev.service.reader;
+package org.nessrev.task.service.reader;
 
 import org.junit.jupiter.api.Test;
-import org.nessrev.exceptions.CustomException;
+import org.nessrev.task.exception.CustomException;
+import org.nessrev.task.reader.impl.FileReaderServiceImpl;
 
 import java.nio.file.Files;
 import java.nio.file.Path;

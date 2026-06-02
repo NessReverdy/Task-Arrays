@@ -1,9 +1,10 @@
-package org.nessrev.service.calculation;
+package org.nessrev.task.service.calculation;
 
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
-import org.nessrev.entity.NumericArrayEntity;
+import org.nessrev.task.entity.NumericArrayEntity;
+import org.nessrev.task.service.calculation.impl.CalculationServiceImpl;
 
 import java.util.Optional;
 import java.util.stream.Stream;

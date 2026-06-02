@@ -1,4 +1,4 @@
-package org.nessrev.task.parser;
+package org.nessrev.task.parser.impl;
 
 import org.nessrev.task.parser.realization.AbstractNumericParser;
 

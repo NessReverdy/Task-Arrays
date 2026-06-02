@@ -1,8 +1,9 @@
-package org.nessrev.task.reader;
+package org.nessrev.task.reader.impl;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.nessrev.task.exceptions.CustomException;
+import org.nessrev.task.exception.CustomException;
+import org.nessrev.task.reader.FileReaderService;
 
 import java.io.IOException;
 import java.nio.file.Files;

@@ -1,6 +1,6 @@
-package org.nessrev.service.calculation;
+package org.nessrev.task.service.calculation;
 
-import org.nessrev.entity.NumericArrayEntity;
+import org.nessrev.task.entity.NumericArrayEntity;
 
 import java.util.Optional;
 

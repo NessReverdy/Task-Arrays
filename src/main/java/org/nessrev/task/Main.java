@@ -1,18 +1,18 @@
-package org.nessrev;
+package org.nessrev.task;
 
-import org.nessrev.entity.NumericArrayEntity;
-import org.nessrev.factory.NumericArrayFactory;
-import org.nessrev.service.calculation.CalculationService;
-import org.nessrev.service.calculation.CalculationServiceImpl;
-import org.nessrev.service.sort.SortService;
-import org.nessrev.service.sort.SortServiceImpl;
-import org.nessrev.service.parser.DoubleArrayParser;
-import org.nessrev.service.parser.dispatcher.ParserDispatcher;
-import org.nessrev.service.parser.IntegerArrayParser;
-import org.nessrev.service.reader.FileReaderService;
-import org.nessrev.service.reader.FileReaderServiceImpl;
-import org.nessrev.service.validator.NumericArrayValidator;
-import org.nessrev.service.validator.NumericArrayValidatorImpl;
+import org.nessrev.task.entity.NumericArrayEntity;
+import org.nessrev.task.factory.NumericArrayFactory;
+import org.nessrev.task.service.calculation.CalculationService;
+import org.nessrev.task.service.calculation.impl.CalculationServiceImpl;
+import org.nessrev.task.service.sort.SortService;
+import org.nessrev.task.service.sort.impl.SortServiceImpl;
+import org.nessrev.task.parser.impl.DoubleArrayParser;
+import org.nessrev.task.parser.dispatcher.ParserDispatcher;
+import org.nessrev.task.parser.impl.IntegerArrayParser;
+import org.nessrev.task.reader.FileReaderService;
+import org.nessrev.task.reader.impl.FileReaderServiceImpl;
+import org.nessrev.task.validator.NumericArrayValidator;
+import org.nessrev.task.validator.impl.NumericArrayValidatorImpl;
 
 import java.io.IOException;
 import java.nio.file.Files;

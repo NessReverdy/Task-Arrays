@@ -1,9 +1,10 @@
-package org.nessrev.service.parser.dispatcher;
+package org.nessrev.task.service.parser.dispatcher;
 
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
-import org.nessrev.service.parser.general.GeneralParser;
+import org.nessrev.task.parser.dispatcher.ParserDispatcher;
+import org.nessrev.task.parser.GeneralParser;
 
 import java.util.List;
 import java.util.stream.Stream;

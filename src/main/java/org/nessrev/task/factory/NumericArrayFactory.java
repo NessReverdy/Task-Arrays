@@ -1,19 +1,14 @@
-package org.nessrev.factory;
+package org.nessrev.task.factory;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.nessrev.entity.NumericArrayEntity;
-import org.nessrev.service.helper.HelperService;
-import org.nessrev.service.helper.HelperServiceImpl;
+import org.nessrev.task.entity.NumericArrayEntity;
 
 import java.lang.reflect.Array;
 import java.util.List;
 
 public class NumericArrayFactory {
-    private final HelperService helperService = new HelperServiceImpl();
-
-    private static final Logger logger =
-            LogManager.getLogger(NumericArrayFactory.class);
+    private static final Logger logger = LogManager.getLogger(NumericArrayFactory.class);
 
     public <T extends Number> NumericArrayEntity<T> createNumericArray(List<T> numericList, Class<T> clazz) {
         NumericArrayEntity<T> entity = new NumericArrayEntity<>();
@@ -32,7 +27,6 @@ public class NumericArrayFactory {
         logger.info(
                 "NumericArrayEntity successfully created. Output array size: {}",
                 array.length);
-        helperService.print(entity);
 
         return entity;
     }

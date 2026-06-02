@@ -1,4 +1,4 @@
-package org.nessrev.entity;
+package org.nessrev.task.entity;
 
 import java.util.Arrays;
 
@@ -16,6 +16,6 @@ public class NumericArrayEntity<T extends Number> {
     public NumericArrayEntity() {}
 
     public NumericArrayEntity(T[] numericArray) {
-        this.numericArray = numericArray;
+        setNumericArray(numericArray);
     }
 }

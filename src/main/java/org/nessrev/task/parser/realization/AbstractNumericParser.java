@@ -1,6 +1,6 @@
-package org.nessrev.service.parser.realization;
+package org.nessrev.task.parser.realization;
 
-import org.nessrev.service.parser.general.GeneralParser;
+import org.nessrev.task.parser.GeneralParser;
 
 public abstract class AbstractNumericParser<T extends Number> implements GeneralParser<T> {
     @Override

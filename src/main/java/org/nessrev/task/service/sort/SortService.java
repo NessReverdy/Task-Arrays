@@ -1,7 +1,7 @@
-package org.nessrev.service.sort;
+package org.nessrev.task.service.sort;
 
-import org.nessrev.entity.NumericArrayEntity;
-import org.nessrev.exceptions.CustomException;
+import org.nessrev.task.entity.NumericArrayEntity;
+import org.nessrev.task.exception.CustomException;
 
 public interface SortService {
     <T extends Number> NumericArrayEntity<T> quickSort(NumericArrayEntity<T> entity) throws CustomException;

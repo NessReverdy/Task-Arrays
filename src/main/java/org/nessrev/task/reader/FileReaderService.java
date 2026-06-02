@@ -1,6 +1,6 @@
-package org.nessrev.service.reader;
+package org.nessrev.task.reader;
 
-import org.nessrev.exceptions.CustomException;
+import org.nessrev.task.exception.CustomException;
 
 import java.util.List;
 

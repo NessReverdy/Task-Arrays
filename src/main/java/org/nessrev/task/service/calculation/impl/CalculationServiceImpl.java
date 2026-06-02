@@ -1,8 +1,9 @@
-package org.nessrev.task.service.calculation;
+package org.nessrev.task.service.calculation.impl;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.nessrev.task.entity.NumericArrayEntity;
+import org.nessrev.task.service.calculation.CalculationService;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;

@@ -1,10 +1,11 @@
-package org.nessrev.service.sort;
+package org.nessrev.task.service.sort;
 
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
-import org.nessrev.entity.NumericArrayEntity;
-import org.nessrev.exceptions.CustomException;
+import org.nessrev.task.entity.NumericArrayEntity;
+import org.nessrev.task.exception.CustomException;
+import org.nessrev.task.service.sort.impl.SortServiceImpl;
 
 import java.util.stream.Stream;
 

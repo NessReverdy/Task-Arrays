@@ -1,7 +1,7 @@
-package org.nessrev.service.validator;
+package org.nessrev.task.validator;
 
 import java.util.List;
 
 public interface NumericArrayValidator {
-    public List<String> validateNumericArray(List<String> listFromFile);
+    List<String> validateNumericArray(List<String> listFromFile);
 }
