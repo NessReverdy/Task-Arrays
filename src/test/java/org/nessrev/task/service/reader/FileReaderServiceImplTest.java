@@ -12,30 +12,30 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class FileReaderServiceImplTest {
-    private final FileReaderServiceImpl fileReaderService =
-            new FileReaderServiceImpl();
+  private final FileReaderServiceImpl fileReaderService =
+    new FileReaderServiceImpl();
 
 
-    @Test
-    void readFile_shouldReturnFileContent_whenFileExists() throws Exception {
-        Path file = Path.of("data/test.txt");
-        Files.createDirectories(file.getParent());
-        Files.write(file, List.of("line1", "line2", "line3"));
+  @Test
+  void readFile_shouldReturnFileContent_whenFileExists() throws Exception {
+    Path file = Path.of("data/test.txt");
+    Files.createDirectories(file.getParent());
+    Files.write(file, List.of("line1", "line2", "line3"));
 
-        List<String> result = fileReaderService.readFile("test.txt");
+    List<String> result = fileReaderService.readFile("test.txt");
 
-        assertEquals(List.of("line1", "line2", "line3"), result);
+    assertEquals(List.of("line1", "line2", "line3"), result);
 
-        Files.deleteIfExists(file);
-    }
+    Files.deleteIfExists(file);
+  }
 
-    @Test
-    void readFile_shouldThrowException_whenFileNotExists() {
-        String invalidFile = "not_existing_file.txt";
+  @Test
+  void readFile_shouldThrowException_whenFileNotExists() {
+    String invalidFile = "not_existing_file.txt";
 
-        assertThrows(CustomException.class, () -> {
-            fileReaderService.readFile(invalidFile);
-        });
-    }
+    assertThrows(CustomException.class, () -> {
+      fileReaderService.readFile(invalidFile);
+    });
+  }
 
 }

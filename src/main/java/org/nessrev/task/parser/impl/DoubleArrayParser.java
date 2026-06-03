@@ -3,15 +3,15 @@ package org.nessrev.task.parser.impl;
 import org.nessrev.task.parser.realization.AbstractNumericParser;
 
 public class DoubleArrayParser extends AbstractNumericParser<Double> {
-    private static final String CHECK_DOUBLE = "-?\\d+\\.\\d+";
+  private static final String CHECK_DOUBLE = "-?\\d+\\.\\d+";
 
-    @Override
-    public boolean canParse(String value) {
-        return value.matches(CHECK_DOUBLE);
-    }
+  @Override
+  public boolean canParse(String value) {
+    return value.matches(CHECK_DOUBLE);
+  }
 
-    @Override
-    protected Double convert(String value) {
-        return Double.parseDouble(value);
-    }
+  @Override
+  protected Double convert(String value) {
+    return Double.parseDouble(value);
+  }
 }

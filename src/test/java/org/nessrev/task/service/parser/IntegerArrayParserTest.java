@@ -11,54 +11,54 @@ import java.util.stream.Stream;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class IntegerArrayParserTest {
-    private final IntegerArrayParser parser = new IntegerArrayParser();
+  private final IntegerArrayParser parser = new IntegerArrayParser();
 
-    @ParameterizedTest
-    @MethodSource("canParseCases")
-    void canParse_shouldReturnExpected(String input, boolean expected) {
+  private static Stream<Arguments> canParseCases() {
+    return Stream.of(
+      Arguments.of("1", true),
+      Arguments.of("-1", true),
+      Arguments.of("123", true),
+      Arguments.of("0", true),
 
-        boolean result = parser.canParse(input);
+      Arguments.of("1.0", false),
+      Arguments.of("abc", false),
+      Arguments.of("1,5", false),
+      Arguments.of("", false),
+      Arguments.of("1 2", false),
+      Arguments.of("12.34", false)
+    );
+  }
 
-        assertEquals(expected, result);
-    }
+  private static Stream<Arguments> parseCases() {
+    return Stream.of(
+      Arguments.of("1", 1),
+      Arguments.of("-1", -1),
+      Arguments.of("123", 123),
+      Arguments.of("0", 0)
+    );
+  }
 
-    private static Stream<Arguments> canParseCases() {
-        return Stream.of(
-                Arguments.of("1", true),
-                Arguments.of("-1", true),
-                Arguments.of("123", true),
-                Arguments.of("0", true),
+  @ParameterizedTest
+  @MethodSource("canParseCases")
+  void canParse_shouldReturnExpected(String input, boolean expected) {
 
-                Arguments.of("1.0", false),
-                Arguments.of("abc", false),
-                Arguments.of("1,5", false),
-                Arguments.of("", false),
-                Arguments.of("1 2", false),
-                Arguments.of("12.34", false)
-        );
-    }
+    boolean result = parser.canParse(input);
 
-    @Test
-    void convert_shouldReturnIntegerValue() {
-        Integer result = parser.parse("12");
+    assertEquals(expected, result);
+  }
 
-        assertEquals(12, result);
-    }
+  @Test
+  void convert_shouldReturnIntegerValue() {
+    Integer result = parser.parse("12");
 
-    @ParameterizedTest
-    @MethodSource("parseCases")
-    void parse_shouldReturnIntegerValue(String input, Integer expected) {
-        Integer result = parser.parse(input);
+    assertEquals(12, result);
+  }
 
-        assertEquals(expected, result);
-    }
+  @ParameterizedTest
+  @MethodSource("parseCases")
+  void parse_shouldReturnIntegerValue(String input, Integer expected) {
+    Integer result = parser.parse(input);
 
-    private static Stream<Arguments> parseCases() {
-        return Stream.of(
-                Arguments.of("1", 1),
-                Arguments.of("-1", -1),
-                Arguments.of("123", 123),
-                Arguments.of("0", 0)
-        );
-    }
+    assertEquals(expected, result);
+  }
 }

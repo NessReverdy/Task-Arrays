@@ -8,26 +8,26 @@ import java.lang.reflect.Array;
 import java.util.List;
 
 public class NumericArrayFactory {
-    private static final Logger logger = LogManager.getLogger(NumericArrayFactory.class);
+  private static final Logger logger = LogManager.getLogger();
 
-    public <T extends Number> NumericArrayEntity<T> createNumericArray(List<T> numericList, Class<T> clazz) {
-        NumericArrayEntity<T> entity = new NumericArrayEntity<>();
+  public <T extends Number> NumericArrayEntity<T> createNumericArray(List<T> numericList, Class<T> clazz) {
+    NumericArrayEntity<T> entity = new NumericArrayEntity<>();
 
-        @SuppressWarnings("unchecked")
-        T[] array = (T[]) Array.newInstance(clazz, numericList.size());
-        logger.info(
-                "start creating NumericArrayEntity from list. Input list size: {}",
-                numericList.size());
+    @SuppressWarnings("unchecked")
+    T[] array = (T[]) Array.newInstance(clazz, numericList.size());
+    logger.info(
+      "start creating NumericArrayEntity from list. Input list size: {}",
+      numericList.size());
 
-        for (int i = 0; i < numericList.size(); i++) {
-            array[i] = numericList.get(i);
-        }
-        entity.setNumericArray(array);
-
-        logger.info(
-                "NumericArrayEntity successfully created. Output array size: {}",
-                array.length);
-
-        return entity;
+    for (int i = 0; i < numericList.size(); i++) {
+      array[i] = numericList.get(i);
     }
+    entity.setNumericArray(array);
+
+    logger.info(
+      "NumericArrayEntity successfully created. Output array size: {}",
+      array.length);
+
+    return entity;
+  }
 }
