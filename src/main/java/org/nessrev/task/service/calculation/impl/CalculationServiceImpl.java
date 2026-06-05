@@ -3,12 +3,17 @@ package org.nessrev.task.service.calculation.impl;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.nessrev.task.entity.NumericArrayEntity;
+import org.nessrev.task.repo.NumericArrayRepository;
 import org.nessrev.task.service.calculation.CalculationService;
+import org.nessrev.task.util.Condition;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.util.Arrays;
+import java.util.List;
 import java.util.Optional;
+import java.util.function.Function;
+import java.util.function.Predicate;
 
 public class CalculationServiceImpl implements CalculationService {
   private static final Logger logger = LogManager.getLogger();
@@ -78,6 +83,39 @@ public class CalculationServiceImpl implements CalculationService {
 
       logger.info("Average value calculated: {}", avg);
       return Optional.of(avg);
+  }
+
+  @Override
+  public <T extends Number> List<NumericArrayEntity<T>> searchArrayByPredicate(
+    Predicate<Double> condition,
+    Function<NumericArrayEntity<? extends Number>, Optional<Double>> function,
+    String logExplain,
+    NumericArrayRepository<T> repo
+  ) {
+    logger.info("Starting searchArrayByPredicate: {}", logExplain);
+
+    List<NumericArrayEntity<T>> result = repo.findAll()
+      .stream()
+      .filter(e -> {
+        Optional<Double> valueOpt = function.apply(e);
+        boolean ok = valueOpt
+          .map(condition::test)
+          .orElse(false);
+        logger.debug(
+          "Evaluating entity: id={}, value={}, pass={}",
+          e.getId(),
+          valueOpt.orElse(null),
+          ok
+        );
+        return ok;
+      })
+      .toList();
+
+    logger.info("searchArrayByPredicate finished: found {} entities matching condition '{}'",
+      result.size(),
+      logExplain
+    );
+    return result;
   }
 
   private double round(double value) {

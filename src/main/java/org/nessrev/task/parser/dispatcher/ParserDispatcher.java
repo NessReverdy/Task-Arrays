@@ -18,7 +18,8 @@ public class ParserDispatcher {
   public Optional<Number> parse(String value) {
     for (GeneralParser<? extends Number> parser : parsers) {
       if (parser.canParse(value)) {
-        return Optional.ofNullable(parser.parse(value));
+        Number result = parser.parse(value);
+        return Optional.of(result);
       }
     }
     logger.warn("Unknown format: {}", value);

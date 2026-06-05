@@ -14,6 +14,7 @@ import org.nessrev.task.service.calculation.CalculationService;
 import org.nessrev.task.service.calculation.impl.CalculationServiceImpl;
 import org.nessrev.task.service.sort.SortService;
 import org.nessrev.task.service.sort.impl.SortServiceImpl;
+import org.nessrev.task.util.Condition;
 import org.nessrev.task.validator.NumericArrayValidator;
 import org.nessrev.task.validator.impl.NumericArrayValidatorImpl;
 
@@ -31,8 +32,8 @@ public class Main {
     final NumericArrayFactory factory = new NumericArrayFactory();
     final CalculationService calculator = new CalculationServiceImpl();
     final SortService sort = new SortServiceImpl();
-    final NumericArrayRepository repo = new NumericArrayRepositoryImpl();
-
+    final NumericArrayRepository<Integer> repoInteger = new NumericArrayRepositoryImpl<>();
+    final NumericArrayRepository<Double> repoDouble = new NumericArrayRepositoryImpl<>();
     ParserDispatcher dispatcher = new ParserDispatcher(List.of(
       new IntegerArrayParser(),
       new DoubleArrayParser()
@@ -41,18 +42,19 @@ public class Main {
     List<String> dataList = reader.readFile("input.txt");
     List<String> validList = validator.validateNumericArray(dataList);
 
-    List<Optional<Number>> numbers = validList.stream()
+    List<Number> numbers = validList.stream()
       .map(dispatcher::parse)
+      .flatMap(Optional::stream)
       .toList();
 
     List<Integer> listOfInteger = numbers.stream()
-      .filter(n -> false)
-      .map(Integer.class::cast)
+      .filter(n -> n instanceof Integer)
+      .map(n -> (Integer) n)
       .toList();
 
     List<Double> listOfDouble = numbers.stream()
-      .filter(n -> false)
-      .map(Double.class::cast)
+      .filter(n -> n instanceof Double)
+      .map(n -> (Double) n)
       .toList();
 
     NumericArrayEntity<Integer> integerEntity =
@@ -61,38 +63,41 @@ public class Main {
     NumericArrayEntity<Double> doubleEntity =
       factory.createNumericArray(listOfDouble, Double.class);
 
-    repo.addNumericArrayEntity(integerEntity);
-    repo.addNumericArrayEntity(doubleEntity);
+    repoInteger.addNumericArrayEntity(integerEntity);
+    repoDouble.addNumericArrayEntity(doubleEntity);
+    repoInteger.addNumericArrayEntity(
+      new NumericArrayEntity<>(new Integer[]{1, 6, 8, -6, 5, -3, 4, 8, 10}));
+    repoInteger.addNumericArrayEntity(
+      new NumericArrayEntity<>(new Integer[]{0, 5, 7, -4, -3, 2, 7, -8}));
+    repoInteger.addNumericArrayEntity(
+      new NumericArrayEntity<>(new Integer[]{1, 8, 4, 0, 3, 5, 8, 6}));
 
-    Optional<Double> minInt = calculator.min(integerEntity);
-    Optional<Double> maxInt = calculator.max(integerEntity);
-    Optional<Double> sumInt = calculator.sum(integerEntity);
-    Optional<Double> avgInt = calculator.avg(integerEntity);
+    NumericArrayEntity<Integer> integerEntityFromRepo = repoInteger.findById(integerEntity.getId());
+    NumericArrayEntity<Double> doubleEntityFromRepo = repoDouble.findById(doubleEntity.getId());
 
-    Optional<Double> minDouble = calculator.min(doubleEntity);
-    Optional<Double> maxDouble = calculator.max(doubleEntity);
-    Optional<Double> sumDouble = calculator.sum(doubleEntity);
-    Optional<Double> avgDouble = calculator.avg(doubleEntity);
+    List<NumericArrayEntity<Integer>> listOfSomeEntities =
+      calculator.searchArrayByPredicate(
+        Condition.greaterThan(5),
+        calculator::max,
+        "max > 5",
+        repoInteger);
 
-    integerEntity = sort.mergeSort(integerEntity);
-    doubleEntity = sort.quickSort(doubleEntity);
-
-    repo.updateNumericArrayEntity(integerEntity);
-    repo.updateNumericArrayEntity(doubleEntity);
+    repoInteger.updateNumericArrayEntity(integerEntityFromRepo);
+    repoDouble.updateNumericArrayEntity(doubleEntityFromRepo);
 
     Path path = Path.of("data/outputInt.txt");
     Path path2 = Path.of("data/outputDouble.txt");
 
     Files.write(
       path,
-      Arrays.stream(integerEntity.getNumericArray())
+      Arrays.stream(integerEntityFromRepo.getNumericArray())
         .map(String::valueOf)
         .toList()
     );
 
     Files.write(
       path2,
-      Arrays.stream(doubleEntity.getNumericArray())
+      Arrays.stream(doubleEntityFromRepo.getNumericArray())
         .map(String::valueOf)
         .toList()
     );

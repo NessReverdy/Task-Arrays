@@ -10,7 +10,7 @@ public class SortServiceImpl implements SortService {
   private final Logger logger = LogManager.getLogger();
 
   @Override
-  public <T extends Number> NumericArrayEntity<T> quickSort(NumericArrayEntity<T> entity) throws CustomException {
+  public <T extends Number>  NumericArrayEntity<T> quickSort(NumericArrayEntity<T> entity) throws CustomException {
       logger.info("QuickSort started");
       T[] arr = entity.getNumericArray();
 
@@ -22,7 +22,7 @@ public class SortServiceImpl implements SortService {
   }
 
   @Override
-  public <T extends Number> NumericArrayEntity<T> mergeSort(NumericArrayEntity<T> entity) throws CustomException {
+  public <T extends Number>  NumericArrayEntity<T> mergeSort(NumericArrayEntity<T> entity) throws CustomException {
       logger.info("MergeSort started");
       T[] arr = entity.getNumericArray();
 
@@ -102,7 +102,7 @@ public class SortServiceImpl implements SortService {
     return i + 1;
   }
 
-  private <T> void swap(T[] arr, int i, int j) {
+  private <T extends Number> void swap(T[] arr, int i, int j) {
     T temp = arr[i];
     arr[i] = arr[j];
     arr[j] = temp;

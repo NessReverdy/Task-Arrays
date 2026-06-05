@@ -6,11 +6,11 @@ import org.nessrev.task.exception.CustomException;
 import java.util.List;
 import java.util.UUID;
 
-public interface NumericArrayRepository {
-  void addNumericArrayEntity(NumericArrayEntity<?> numericArrayEntity) throws CustomException;
-  void updateNumericArrayEntity(NumericArrayEntity<?> numericArrayEntity) throws CustomException;
+public interface NumericArrayRepository<T extends Number> {
+  void addNumericArrayEntity(NumericArrayEntity<T> numericArrayEntity) throws CustomException;
+  void updateNumericArrayEntity(NumericArrayEntity<T> numericArrayEntity) throws CustomException;
   void deleteNumericArrayEntityById(UUID id) throws CustomException;
 
-  NumericArrayEntity<?> findById(UUID id) throws CustomException;
-  List<NumericArrayEntity<?>> findAll();
+  NumericArrayEntity<T> findById(UUID id) throws CustomException;
+  List<NumericArrayEntity<T>> findAll();
 }

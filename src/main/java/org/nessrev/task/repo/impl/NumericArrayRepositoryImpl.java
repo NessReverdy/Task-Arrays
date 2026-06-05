@@ -8,12 +8,13 @@ import org.nessrev.task.repo.NumericArrayRepository;
 
 import java.util.*;
 
-public class NumericArrayRepositoryImpl implements NumericArrayRepository {
+public class NumericArrayRepositoryImpl<T extends Number> implements NumericArrayRepository<T> {
   private static final Logger logger = LogManager.getLogger();
-  private final Map<UUID, NumericArrayEntity<?>> entityStorage = new HashMap<>();
+  private final Map<UUID, NumericArrayEntity<T>> entityStorage = new HashMap<>();
 
   @Override
-  public void addNumericArrayEntity(NumericArrayEntity<?> numericArrayEntity) throws CustomException {
+  public void addNumericArrayEntity(
+    NumericArrayEntity<T> numericArrayEntity) throws CustomException {
     UUID id = numericArrayEntity.getId();
 
     if (entityStorage.containsKey(id)) {
@@ -26,7 +27,8 @@ public class NumericArrayRepositoryImpl implements NumericArrayRepository {
   }
 
   @Override
-  public void updateNumericArrayEntity(NumericArrayEntity<?> numericArrayEntity) throws CustomException {
+  public void updateNumericArrayEntity(
+    NumericArrayEntity<T> numericArrayEntity) throws CustomException {
     UUID id = numericArrayEntity.getId();
     if (!entityStorage.containsKey(id)) {
       logger.warn("Attempt to update numeric array entity with id {} does not exist", id);
@@ -49,8 +51,8 @@ public class NumericArrayRepositoryImpl implements NumericArrayRepository {
   }
 
   @Override
-  public NumericArrayEntity<?> findById(UUID id) throws CustomException {
-    NumericArrayEntity<?> entity = entityStorage.get(id);
+  public NumericArrayEntity<T> findById(UUID id) throws CustomException {
+    NumericArrayEntity<T> entity = entityStorage.get(id);
 
     if (entity == null) {
       logger.error("Cannot find entity with id: {}", id);
@@ -61,7 +63,12 @@ public class NumericArrayRepositoryImpl implements NumericArrayRepository {
   }
 
   @Override
-  public List<NumericArrayEntity<?>> findAll() {
-    return new ArrayList<>(entityStorage.values());
+  public List<NumericArrayEntity<T>> findAll() {
+    List<NumericArrayEntity<T>> result =
+      new ArrayList<>(entityStorage.values());
+
+    logger.info("findAll() -> {} entities found", result.size());
+
+    return result;
   }
 }
