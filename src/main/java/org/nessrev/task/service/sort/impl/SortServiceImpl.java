@@ -2,15 +2,21 @@ package org.nessrev.task.service.sort.impl;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.nessrev.task.comparator.NumericArrayComparator;
+import org.nessrev.task.comparator.impl.NumericArrayComparatorImpl;
 import org.nessrev.task.entity.NumericArrayEntity;
-import org.nessrev.task.exception.CustomException;
+import org.nessrev.task.repo.NumericArrayRepository;
 import org.nessrev.task.service.sort.SortService;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 public class SortServiceImpl implements SortService {
   private final Logger logger = LogManager.getLogger();
+  private final NumericArrayComparator comparator = new NumericArrayComparatorImpl();
 
   @Override
-  public <T extends Number>  NumericArrayEntity<T> quickSort(NumericArrayEntity<T> entity) throws CustomException {
+  public <T extends Number>  NumericArrayEntity<T> quickSort(NumericArrayEntity<T> entity){
       logger.info("QuickSort started");
       T[] arr = entity.getNumericArray();
 
@@ -22,7 +28,7 @@ public class SortServiceImpl implements SortService {
   }
 
   @Override
-  public <T extends Number>  NumericArrayEntity<T> mergeSort(NumericArrayEntity<T> entity) throws CustomException {
+  public <T extends Number>  NumericArrayEntity<T> mergeSort(NumericArrayEntity<T> entity){
       logger.info("MergeSort started");
       T[] arr = entity.getNumericArray();
 
@@ -31,6 +37,39 @@ public class SortServiceImpl implements SortService {
       logger.info("MergeSort finished");
 
       return entity;
+  }
+
+  @Override
+  public <T extends Number> List<NumericArrayEntity<T>> sortById(NumericArrayRepository<T> repo) {
+    List<NumericArrayEntity<T>> entities = repo.findAll();
+    logger.info("Before sorting by id:\n {}", format(entities));
+
+    entities.sort(comparator.byId());
+
+    logger.info("After sorting by id:\n {}", format(entities));
+    return entities;
+  }
+
+  @Override
+  public <T extends Number> List<NumericArrayEntity<T>> sortByFirstElement(NumericArrayRepository<T> repo) {
+    List<NumericArrayEntity<T>> entities = repo.findAll();
+    logger.info("Before sorting by first element:\n {}", format(entities));
+
+    entities.sort(comparator.byFirstElement());
+
+    logger.info("After sorting by first element:\n {}", format(entities));
+    return entities;
+  }
+
+  @Override
+  public <T extends Number> List<NumericArrayEntity<T>> sortByLength(NumericArrayRepository<T> repo) {
+    List<NumericArrayEntity<T>> entities = repo.findAll();
+    logger.info("Before sorting by length:\n {}", format(entities));
+
+    entities.sort(comparator.byLength());
+
+    logger.info("After sorting by length:\n {}", format(entities));
+    return entities;
   }
 
   private <T extends Number> void mergeSort(T[] arr, int left, int right) {
@@ -106,5 +145,11 @@ public class SortServiceImpl implements SortService {
     T temp = arr[i];
     arr[i] = arr[j];
     arr[j] = temp;
+  }
+
+  private <T> String format(List<T> list) {
+    return list.stream()
+      .map(Object::toString)
+      .collect(Collectors.joining("\n"));
   }
 }

@@ -12,9 +12,10 @@ import org.nessrev.task.repo.NumericArrayRepository;
 import org.nessrev.task.repo.impl.NumericArrayRepositoryImpl;
 import org.nessrev.task.service.calculation.CalculationService;
 import org.nessrev.task.service.calculation.impl.CalculationServiceImpl;
+import org.nessrev.task.comparator.NumericArrayComparator;
+import org.nessrev.task.comparator.impl.NumericArrayComparatorImpl;
 import org.nessrev.task.service.sort.SortService;
 import org.nessrev.task.service.sort.impl.SortServiceImpl;
-import org.nessrev.task.util.Condition;
 import org.nessrev.task.validator.NumericArrayValidator;
 import org.nessrev.task.validator.impl.NumericArrayValidatorImpl;
 
@@ -66,21 +67,16 @@ public class Main {
     repoInteger.addNumericArrayEntity(integerEntity);
     repoDouble.addNumericArrayEntity(doubleEntity);
     repoInteger.addNumericArrayEntity(
-      new NumericArrayEntity<>(new Integer[]{1, 6, 8, -6, 5, -3, 4, 8, 10}));
+      new NumericArrayEntity<>(new Integer[]{4, 9, 1, 6, 8, -6, 5, -3, 4, 8, 10}));
     repoInteger.addNumericArrayEntity(
-      new NumericArrayEntity<>(new Integer[]{0, 5, 7, -4, -3, 2, 7, -8}));
+      new NumericArrayEntity<>(new Integer[]{9, 5, 7, -4, -3, 2, 7, 9, 0, 5, 8, -8}));
     repoInteger.addNumericArrayEntity(
       new NumericArrayEntity<>(new Integer[]{1, 8, 4, 0, 3, 5, 8, 6}));
 
     NumericArrayEntity<Integer> integerEntityFromRepo = repoInteger.findById(integerEntity.getId());
     NumericArrayEntity<Double> doubleEntityFromRepo = repoDouble.findById(doubleEntity.getId());
 
-    List<NumericArrayEntity<Integer>> listOfSomeEntities =
-      calculator.searchArrayByPredicate(
-        Condition.greaterThan(5),
-        calculator::max,
-        "max > 5",
-        repoInteger);
+    List<NumericArrayEntity<Integer>> i = sort.sortByFirstElement(repoInteger);
 
     repoInteger.updateNumericArrayEntity(integerEntityFromRepo);
     repoDouble.updateNumericArrayEntity(doubleEntityFromRepo);

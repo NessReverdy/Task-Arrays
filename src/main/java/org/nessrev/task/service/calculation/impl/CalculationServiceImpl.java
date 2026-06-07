@@ -5,7 +5,6 @@ import org.apache.logging.log4j.Logger;
 import org.nessrev.task.entity.NumericArrayEntity;
 import org.nessrev.task.repo.NumericArrayRepository;
 import org.nessrev.task.service.calculation.CalculationService;
-import org.nessrev.task.util.Condition;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
