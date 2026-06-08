@@ -6,6 +6,7 @@ import org.nessrev.task.comparator.NumericArrayComparator;
 import org.nessrev.task.comparator.impl.NumericArrayComparatorImpl;
 import org.nessrev.task.entity.NumericArrayEntity;
 import org.nessrev.task.repo.NumericArrayRepository;
+import org.nessrev.task.repo.impl.NumericArrayRepositoryImpl;
 import org.nessrev.task.service.sort.SortService;
 
 import java.util.List;
@@ -40,8 +41,8 @@ public class SortServiceImpl implements SortService {
   }
 
   @Override
-  public <T extends Number> List<NumericArrayEntity<T>> sortById(NumericArrayRepository<T> repo) {
-    List<NumericArrayEntity<T>> entities = repo.findAll();
+  public List<NumericArrayEntity<? extends Number>> sortById(NumericArrayRepository repo) {
+    List<NumericArrayEntity<? extends Number>> entities = repo.findAll();
     logger.info("Before sorting by id:\n {}", format(entities));
 
     entities.sort(comparator.byId());
@@ -51,8 +52,9 @@ public class SortServiceImpl implements SortService {
   }
 
   @Override
-  public <T extends Number> List<NumericArrayEntity<T>> sortByFirstElement(NumericArrayRepository<T> repo) {
-    List<NumericArrayEntity<T>> entities = repo.findAll();
+  public List<NumericArrayEntity<? extends Number>> sortByFirstElement(NumericArrayRepository repo) {
+
+    List<NumericArrayEntity<? extends Number>> entities = repo.findAll();
     logger.info("Before sorting by first element:\n {}", format(entities));
 
     entities.sort(comparator.byFirstElement());
@@ -62,8 +64,8 @@ public class SortServiceImpl implements SortService {
   }
 
   @Override
-  public <T extends Number> List<NumericArrayEntity<T>> sortByLength(NumericArrayRepository<T> repo) {
-    List<NumericArrayEntity<T>> entities = repo.findAll();
+  public List<NumericArrayEntity<? extends Number>> sortByLength(NumericArrayRepository repo) {
+    List<NumericArrayEntity<? extends Number>> entities = repo.findAll();
     logger.info("Before sorting by length:\n {}", format(entities));
 
     entities.sort(comparator.byLength());

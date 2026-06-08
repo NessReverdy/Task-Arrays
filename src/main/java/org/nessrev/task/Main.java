@@ -12,8 +12,6 @@ import org.nessrev.task.repo.NumericArrayRepository;
 import org.nessrev.task.repo.impl.NumericArrayRepositoryImpl;
 import org.nessrev.task.service.calculation.CalculationService;
 import org.nessrev.task.service.calculation.impl.CalculationServiceImpl;
-import org.nessrev.task.comparator.NumericArrayComparator;
-import org.nessrev.task.comparator.impl.NumericArrayComparatorImpl;
 import org.nessrev.task.service.sort.SortService;
 import org.nessrev.task.service.sort.impl.SortServiceImpl;
 import org.nessrev.task.validator.NumericArrayValidator;
@@ -33,8 +31,7 @@ public class Main {
     final NumericArrayFactory factory = new NumericArrayFactory();
     final CalculationService calculator = new CalculationServiceImpl();
     final SortService sort = new SortServiceImpl();
-    final NumericArrayRepository<Integer> repoInteger = new NumericArrayRepositoryImpl<>();
-    final NumericArrayRepository<Double> repoDouble = new NumericArrayRepositoryImpl<>();
+    final NumericArrayRepository repo = NumericArrayRepositoryImpl.getInstance();
     ParserDispatcher dispatcher = new ParserDispatcher(List.of(
       new IntegerArrayParser(),
       new DoubleArrayParser()
@@ -64,22 +61,22 @@ public class Main {
     NumericArrayEntity<Double> doubleEntity =
       factory.createNumericArray(listOfDouble, Double.class);
 
-    repoInteger.addNumericArrayEntity(integerEntity);
-    repoDouble.addNumericArrayEntity(doubleEntity);
-    repoInteger.addNumericArrayEntity(
+    repo.addNumericArrayEntity(integerEntity);
+    repo.addNumericArrayEntity(doubleEntity);
+    repo.addNumericArrayEntity(
       new NumericArrayEntity<>(new Integer[]{4, 9, 1, 6, 8, -6, 5, -3, 4, 8, 10}));
-    repoInteger.addNumericArrayEntity(
+    repo.addNumericArrayEntity(
       new NumericArrayEntity<>(new Integer[]{9, 5, 7, -4, -3, 2, 7, 9, 0, 5, 8, -8}));
-    repoInteger.addNumericArrayEntity(
+    repo.addNumericArrayEntity(
       new NumericArrayEntity<>(new Integer[]{1, 8, 4, 0, 3, 5, 8, 6}));
 
-    NumericArrayEntity<Integer> integerEntityFromRepo = repoInteger.findById(integerEntity.getId());
-    NumericArrayEntity<Double> doubleEntityFromRepo = repoDouble.findById(doubleEntity.getId());
+    NumericArrayEntity<? extends Number> integerEntityFromRepo = repo.findById(integerEntity.getId());
+    NumericArrayEntity<? extends Number> doubleEntityFromRepo = repo.findById(doubleEntity.getId());
 
-    List<NumericArrayEntity<Integer>> i = sort.sortByFirstElement(repoInteger);
+    List<NumericArrayEntity<? extends Number>> i = sort.sortByFirstElement(repo);
 
-    repoInteger.updateNumericArrayEntity(integerEntityFromRepo);
-    repoDouble.updateNumericArrayEntity(doubleEntityFromRepo);
+    repo.updateNumericArrayEntity(integerEntityFromRepo);
+    repo.updateNumericArrayEntity(doubleEntityFromRepo);
 
     Path path = Path.of("data/outputInt.txt");
     Path path2 = Path.of("data/outputDouble.txt");

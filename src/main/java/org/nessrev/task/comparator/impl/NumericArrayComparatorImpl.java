@@ -11,13 +11,13 @@ public class NumericArrayComparatorImpl implements NumericArrayComparator {
   private static final Logger logger = LogManager.getLogger();
 
   @Override
-  public <T extends Number> Comparator<NumericArrayEntity<T>> byId() {
+  public Comparator<NumericArrayEntity<? extends Number>> byId() {
     logger.debug("Creating comparator: by id");
     return Comparator.comparing(NumericArrayEntity::getId);
   }
 
   @Override
-  public <T extends Number> Comparator<NumericArrayEntity<T>> byFirstElement() {
+  public Comparator<NumericArrayEntity<? extends Number>> byFirstElement() {
     logger.debug("Creating comparator: by first element");
     return Comparator.comparingDouble(e ->
       e.getNumericArray().length == 0
@@ -27,7 +27,7 @@ public class NumericArrayComparatorImpl implements NumericArrayComparator {
   }
 
   @Override
-  public <T extends Number> Comparator<NumericArrayEntity<T>> byLength() {
+  public Comparator<NumericArrayEntity<? extends Number>> byLength() {
     logger.debug("Creating comparator: by number of elements");
     return Comparator.comparingInt(
       e -> e.getNumericArray().length

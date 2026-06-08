@@ -5,7 +5,7 @@ import org.nessrev.task.entity.NumericArrayEntity;
 import java.util.Comparator;
 
 public interface NumericArrayComparator {
-  <T extends Number> Comparator<NumericArrayEntity<T>> byId();
-  <T extends Number> Comparator<NumericArrayEntity<T>> byFirstElement();
-  <T extends Number> Comparator<NumericArrayEntity<T>> byLength();
+  Comparator<NumericArrayEntity<? extends Number>> byId();
+  Comparator<NumericArrayEntity<? extends Number>> byFirstElement();
+  Comparator<NumericArrayEntity<? extends Number>> byLength();
 }
