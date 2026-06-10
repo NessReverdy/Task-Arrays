@@ -1,4 +1,4 @@
-package org.nessrev.task.service.reader;
+package org.nessrev.task.reader;
 
 import org.junit.jupiter.api.Test;
 import org.nessrev.task.exception.CustomException;

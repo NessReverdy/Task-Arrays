@@ -1,4 +1,4 @@
-package org.nessrev.task.service.sort;
+package org.nessrev.task.sort;
 
 import org.nessrev.task.entity.NumericArrayEntity;
 import org.nessrev.task.repo.NumericArrayRepository;

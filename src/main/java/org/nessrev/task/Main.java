@@ -12,8 +12,8 @@ import org.nessrev.task.repo.NumericArrayRepository;
 import org.nessrev.task.repo.impl.NumericArrayRepositoryImpl;
 import org.nessrev.task.service.calculation.CalculationService;
 import org.nessrev.task.service.calculation.impl.CalculationServiceImpl;
-import org.nessrev.task.service.sort.SortService;
-import org.nessrev.task.service.sort.impl.SortServiceImpl;
+import org.nessrev.task.sort.SortService;
+import org.nessrev.task.sort.impl.SortServiceImpl;
 import org.nessrev.task.validator.NumericArrayValidator;
 import org.nessrev.task.validator.impl.NumericArrayValidatorImpl;
 

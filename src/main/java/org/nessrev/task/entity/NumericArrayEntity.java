@@ -17,6 +17,11 @@ public class NumericArrayEntity<T extends Number> {
     setNumericArray(numericArray);
   }
 
+  public NumericArrayEntity(UUID idArray, T[] array) {
+    this.idArray = idArray;
+    this.numericArray = array;
+  }
+
   public T[] getNumericArray() {
     return numericArray == null
       ? null

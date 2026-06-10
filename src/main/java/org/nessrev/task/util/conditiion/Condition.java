@@ -1,4 +1,4 @@
-package org.nessrev.task.util;
+package org.nessrev.task.util.conditiion;
 
 import java.util.function.Predicate;
 

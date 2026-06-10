@@ -1,4 +1,4 @@
-package org.nessrev.task.service.sort.impl;
+package org.nessrev.task.sort.impl;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -6,9 +6,9 @@ import org.nessrev.task.comparator.NumericArrayComparator;
 import org.nessrev.task.comparator.impl.NumericArrayComparatorImpl;
 import org.nessrev.task.entity.NumericArrayEntity;
 import org.nessrev.task.repo.NumericArrayRepository;
-import org.nessrev.task.repo.impl.NumericArrayRepositoryImpl;
-import org.nessrev.task.service.sort.SortService;
+import org.nessrev.task.sort.SortService;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -42,7 +42,8 @@ public class SortServiceImpl implements SortService {
 
   @Override
   public List<NumericArrayEntity<? extends Number>> sortById(NumericArrayRepository repo) {
-    List<NumericArrayEntity<? extends Number>> entities = repo.findAll();
+    List<NumericArrayEntity<? extends Number>> entities =
+      new ArrayList<>(repo.findAll());
     logger.info("Before sorting by id:\n {}", format(entities));
 
     entities.sort(comparator.byId());
@@ -53,8 +54,8 @@ public class SortServiceImpl implements SortService {
 
   @Override
   public List<NumericArrayEntity<? extends Number>> sortByFirstElement(NumericArrayRepository repo) {
-
-    List<NumericArrayEntity<? extends Number>> entities = repo.findAll();
+    List<NumericArrayEntity<? extends Number>> entities =
+      new ArrayList<>(repo.findAll());
     logger.info("Before sorting by first element:\n {}", format(entities));
 
     entities.sort(comparator.byFirstElement());
@@ -65,7 +66,8 @@ public class SortServiceImpl implements SortService {
 
   @Override
   public List<NumericArrayEntity<? extends Number>> sortByLength(NumericArrayRepository repo) {
-    List<NumericArrayEntity<? extends Number>> entities = repo.findAll();
+    List<NumericArrayEntity<? extends Number>> entities =
+      new ArrayList<>(repo.findAll());
     logger.info("Before sorting by length:\n {}", format(entities));
 
     entities.sort(comparator.byLength());

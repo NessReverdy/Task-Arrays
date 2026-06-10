@@ -1,61 +1,63 @@
-package org.nessrev.task.service.parser;
+package org.nessrev.task.parser;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
-import org.nessrev.task.parser.impl.DoubleArrayParser;
+import org.nessrev.task.parser.impl.IntegerArrayParser;
 
 import java.util.stream.Stream;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class DoubleArrayParserTest {
-  private final DoubleArrayParser parser = new DoubleArrayParser();
+public class IntegerArrayParserTest {
+  private final IntegerArrayParser parser = new IntegerArrayParser();
 
   private static Stream<Arguments> canParseCases() {
     return Stream.of(
-      Arguments.of("1.0", true),
-      Arguments.of("-1.5", true),
-      Arguments.of("0.123", true),
-      Arguments.of("10.99", true),
+      Arguments.of("1", true),
+      Arguments.of("-1", true),
+      Arguments.of("123", true),
+      Arguments.of("0", true),
 
-      Arguments.of("1", false),
+      Arguments.of("1.0", false),
       Arguments.of("abc", false),
       Arguments.of("1,5", false),
       Arguments.of("", false),
-      Arguments.of("1.2.3", false)
+      Arguments.of("1 2", false),
+      Arguments.of("12.34", false)
     );
   }
 
   private static Stream<Arguments> parseCases() {
     return Stream.of(
-      Arguments.of("1.8", 1.8),
-      Arguments.of("-1.09", -1.09),
-      Arguments.of("12.3", 12.3),
-      Arguments.of("0", 0.0)
+      Arguments.of("1", 1),
+      Arguments.of("-1", -1),
+      Arguments.of("123", 123),
+      Arguments.of("0", 0)
     );
   }
 
   @ParameterizedTest
   @MethodSource("canParseCases")
   void canParse_shouldReturnExpected(String input, boolean expected) {
+
     boolean result = parser.canParse(input);
 
     assertEquals(expected, result);
   }
 
   @Test
-  void convert_shouldReturnDoubleValue() {
-    Double result = parser.parse("12.34");
+  void convert_shouldReturnIntegerValue() {
+    Integer result = parser.parse("12");
 
-    assertEquals(12.34, result);
+    assertEquals(12, result);
   }
 
   @ParameterizedTest
   @MethodSource("parseCases")
-  void parse_shouldReturnIntegerValue(String input, Double expected) {
-    Double result = parser.parse(input);
+  void parse_shouldReturnIntegerValue(String input, Integer expected) {
+    Integer result = parser.parse(input);
 
     assertEquals(expected, result);
   }
